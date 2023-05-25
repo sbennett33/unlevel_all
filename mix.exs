@@ -51,8 +51,7 @@ defmodule UnlevelAll.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:sanity, "~> 1.0"},
-      {:sanity_components, "~> 0.13"},
-      {:atomize_keys, "~> 1.2"}
+      {:credo, "~> 1.7", only: :dev}
     ]
   end
 

@@ -1,7 +1,8 @@
-defmodule UnlevelAll.ContentEntities do
-  def get(id) do
+defmodule UnlevelAll.CMS do
+  @moduledoc false
+  def get(query) do
     {:ok, response} =
-      Sanity.query(~s(*[_type == "contentEntity" && _id == "#{id}"]))
+      Sanity.query(query)
       |> Sanity.request(
         project_id: System.get_env("SANITY_PROJECT_ID"),
         dataset: "development",
@@ -9,7 +10,8 @@ defmodule UnlevelAll.ContentEntities do
         cdn: true
       )
 
-    [ce | _] = response.body["result"]
-    AtomizeKeys.atomize_string_keys(ce)
+    [document | _] = response.body["result"]
+
+    document
   end
 end
