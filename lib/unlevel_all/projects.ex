@@ -16,6 +16,7 @@ defmodule UnlevelAll.Projects do
   def all() do
     from("task")
     |> preload([:resources, :tags])
+    |> order({"_createdAt", :desc})
     |> CMS.all()
     |> Project.new()
   end
