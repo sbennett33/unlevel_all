@@ -19,4 +19,11 @@ defmodule UnlevelAll.Projects do
     |> CMS.all()
     |> Project.new()
   end
+
+  def get_by_slug(slug) do
+    from("task")
+    |> filter(~s(slug.current == "#{slug}"))
+    |> CMS.one()
+    |> Project.new()
+  end
 end
