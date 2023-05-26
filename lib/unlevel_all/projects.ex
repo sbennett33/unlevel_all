@@ -1,23 +1,22 @@
 defmodule UnlevelAll.Projects do
   @moduledoc false
 
-  alias UnlevelAll.CMS
+  import UnlevelAll.Xanity.Query
+
   alias UnlevelAll.Projects.Project
+  alias UnlevelAll.Xanity.CMS
 
   def get(id) do
-    id
-    |> build_query([:resources, :tags])
-    |> CMS.get()
+    from("task")
+    |> preload([:resources, :tags])
+    |> CMS.get(id)
     |> Project.new()
   end
 
-  def build_query(id, preloads) do
-    ~s(*[_type == "task" && _id == "#{id}"]{..., #{build_preloads(preloads)}})
-  end
-
-  def build_preloads(preloads) do
-    Enum.reduce(preloads, "", fn preload, acc ->
-      acc <> ~s(#{Atom.to_string(preload)}[]->,)
-    end)
+  def all() do
+    from("task")
+    |> preload([:resources, :tags])
+    |> CMS.all()
+    |> Project.new()
   end
 end
