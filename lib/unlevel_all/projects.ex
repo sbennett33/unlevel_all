@@ -8,6 +8,7 @@ defmodule UnlevelAll.Projects do
 
   def get(id) do
     from("task")
+    |> select(["description"])
     |> preload([:resources, :tags])
     |> CMS.get(id)
     |> Project.new()
@@ -25,6 +26,15 @@ defmodule UnlevelAll.Projects do
     from("task")
     |> filter(~s(slug.current == "#{slug}"))
     |> CMS.one()
+    |> Project.new()
+  end
+
+  def get_two_most_recent() do
+    from("task")
+    |> select(["_id", "description"])
+    |> order({"_createdAt", :desc})
+    |> slice("0..1")
+    |> CMS.all()
     |> Project.new()
   end
 end
