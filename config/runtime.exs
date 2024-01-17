@@ -20,6 +20,13 @@ if System.get_env("PHX_SERVER") do
   config :unlevel_all, UnlevelAllWeb.Endpoint, server: true
 end
 
+config :unlevel_all, UnlevelAll.CMS,
+  project_id: System.get_env("SANITY_PROJECT_ID"),
+  dataset: System.get_env("SANITY_DATASET"),
+  token: System.get_env("SANITY_API_KEY"),
+  cdn: true,
+  perspective: "published"
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

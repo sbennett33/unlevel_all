@@ -50,8 +50,9 @@ defmodule UnlevelAll.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:sanity, "~> 1.0"},
-      {:credo, "~> 1.7", only: :dev}
+      {:credo, "~> 1.7", only: :dev},
+      {:ash, "~> 2.18"},
+      {:ash_sanity, path: "../ash_sanity"}
     ]
   end
 
